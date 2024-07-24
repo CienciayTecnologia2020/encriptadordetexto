@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Encriptación</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="logo">a</div>
+            <div class="input-area">
+                <label for="input-text">Ingrese el texto aquí</label>
+                <textarea id="input-text" rows="10"></textarea>
+                <div class="note">🔒 Solo letras minúsculas y sin acentos</div>
+            </div>
+            <div class="buttons">
+                <button class="encrypt-button" onclick="encryptText()">Encriptar</button>
+                <button class="decrypt-button" onclick="decryptText()">Desencriptar</button>
+            </div>
+        </div>
+        <div class="right-panel" id="right-panel">
+            <img src="/images/Muñeco.png" alt="Illustration" id="illustration">
+            <div class="message" id="output-message">
+                <h2>Ningún mensaje fue encontrado</h2>
+                <p>Ingresa el texto que desees encriptar o desencriptar.</p>
+            </div>
+            <button class="copy-button" id="copy-button" onclick="copyText()" style="display: none;">Copiar</button>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    // Función para encriptar el texto
+    function encryptText() {
+        let inputText = document.getElementById('input-text').value;
+        let encryptedText = inputText.replace(/e/g, "enter")
+                                     .replace(/i/g, "imes")
+                                     .replace(/a/g, "ai")
+                                     .replace(/o/g, "ober")
+                                     .replace(/u/g, "ufat");
+        showResult(encryptedText, "Texto encriptado:");
+    }
+
+    // Función para desencriptar el texto
+    function decryptText() {
+        let inputText = document.getElementById('input-text').value;
+        let decryptedText = inputText.replace(/enter/g, "e")
+                                     .replace(/imes/g, "i")
+                                     .replace(/ai/g, "a")
+                                     .replace(/ober/g, "o")
+                                     .replace(/ufat/g, "u");
+        showResult(decryptedText, "Texto desencriptado:");
+    }
+
+    // Función para mostrar el resultado y ocultar la imagen
+    function showResult(text, title) {
+        document.getElementById('illustration').style.display = 'none';
+        document.getElementById('output-message').innerHTML = `
+            <h2>${title}</h2>
+            <p id="result-text">${text}</p>
+        `;
+        document.getElementById('copy-button').style.display = 'block';
+    }
+
+    // Función para copiar el texto al portapapeles
+    function copyText() {
+        let resultText = document.getElementById('result-text').innerText;
+        navigator.clipboard.writeText(resultText).then(() => {
+            alert('Texto copiado al portapapeles');
+        });
+    }
+</script>
